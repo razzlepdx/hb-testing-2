@@ -30,8 +30,20 @@ def rsvp():
 
 @app.route("/games")
 def games():
-    games = Game.query.all()
-    return render_template("games.html", games=games)
+
+    if 'RSVP' not in session:
+        return redirect("/")
+    else:
+        games = Game.query.all()
+        return render_template("games.html", games=games)
+
+
+    # only works if session has one key else use above
+    # if session:
+    #     games = Game.query.all()
+    #     return render_template("games.html", games=games)
+    # else:
+    #     return redirect("/")
 
 
 if __name__ == "__main__":
